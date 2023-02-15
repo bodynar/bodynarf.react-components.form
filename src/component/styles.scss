@@ -1,0 +1,33 @@
+.bbr-form {
+    &__row {
+        &--has-errors {
+            .column {
+                padding-bottom: 0.25rem;
+            }
+        }
+    }
+
+    &__field {
+        &--vertically-center {
+            display: flex;
+            align-items: center;
+        }
+
+        &--is-checkbox {
+            .field-label {
+                padding-top: 0.15em;
+            }
+        }
+
+        .field-label {
+            max-width: 8rem;
+            flex-basis: auto;
+
+            & label.is-required::after {
+                content: "*";
+                color: red;
+                margin-left: 0.25rem;
+            }
+        }
+    }
+}
