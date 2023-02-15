@@ -10,6 +10,7 @@ Small library with react form component based on [react components package](http
 ## Installation
 1. Install [React-redux](https://react-redux.js.org/) according to dependencies of current package
 2. Install [@bodynarf/react.components](https://www.npmjs.com/package/@bodynarf/react.components) by installation guide there
+3. Import `Form` component from `"@bodynarf/react.components.form/component"` and configure as you like
 
 ## Description
 - **Form** - Form as group of fields with validation for collecting user data via inputs. Uses all simple components above. Built by fields configuration. Uses 12-columns grid from Bulma.
