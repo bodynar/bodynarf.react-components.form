@@ -1,0 +1,37 @@
+import { useCallback } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import Multiline from "@bodynarf/react.components/components/primitives/multiline";
+
+import { FormState, FormStatus, getSetFieldValueAction } from "../../../redux";
+import { FormItem } from "../../../types";
+import { getValidationState } from "../../../utils";
+
+/** Multiline component for multiline text form item */
+const MultilineFormComponent = ({ modelConfig, name, viewConfig }: FormItem<string>): JSX.Element => {
+    const dispatcher = useDispatch();
+    const state = useSelector<FormState, FormStatus>(x => x.state);
+    const validationState = getValidationState(modelConfig);
+
+    const onValueChange = useCallback((value?: string) => dispatcher(getSetFieldValueAction(name, value)), [name]);
+
+    return (
+        <Multiline
+            name={name}
+            className={viewConfig.className}
+            defaultValue={modelConfig.defaultValue}
+            onValueChange={onValueChange}
+            label={{
+                caption: viewConfig.caption,
+                horizontal: true,
+                className: modelConfig.required ? "is-required" : ""
+            }}
+            disabled={viewConfig.disabled || state === "validating"}
+            validationState={validationState}
+            placeholder={viewConfig.caption}
+        />
+    );
+};
+
+export default MultilineFormComponent;

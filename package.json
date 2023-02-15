@@ -1,0 +1,43 @@
+{
+    "name": "@bodynarf/react.components.form",
+    "version": "1.0.0",
+    "author": {
+        "name": "Artem",
+        "email": "bodynar@gmail.com"
+    },
+    "repository": {
+        "url": "https://github.com/bodynar/bodynarf.react-components.form",
+        "type": "git"
+    },
+    "bugs": {
+        "url": "https://github.com/bodynar/bodynarf.react-components.form/issues",
+        "email": "bodynar@gmail.com"
+    },
+    "keywords": [
+        "ts",
+        "typescript",
+        "react",
+        "react component",
+        "bulma",
+        "form"
+    ],
+    "scripts": {
+        "build": "npx tsc",
+        "publish_pkg": "npx tsc && copy package.json dist && copy readme.md dist && cd dist && npm publish --access=public"
+    },
+    "devDependencies": {
+        "@types/react": "^18.0.11",
+        "@types/react-dom": "^18.0.5",
+        "@types/react-redux": "^7.1.24",
+        "typescript": "^4.7.3"
+    },
+    "dependencies": {
+        "@bodynarf/utils": "^1.0.14",
+        "@bodynarf/react.components": "^1.4.22",
+        "bulma": "^0.9.4",
+        "react": "^18.1.0",
+        "react-dom": "^18.1.0",
+        "react-redux": "^8.0.1",
+        "redux-thunk": "^2.4.1"
+    }
+}
