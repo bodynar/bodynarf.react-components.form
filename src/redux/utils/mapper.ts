@@ -84,7 +84,7 @@ export const mapItem = (item: Field<any>): ExtendedFormItem<any, any> => {
         modelConfig: {
             type: viewItemTypeToDataTypeMap.get(item.type)!,
             defaultValue: item.defaultValue,
-            value: null,
+            value: item.defaultValue,
             validators: validators,
             required: isRequired,
             validationMessages: [],
