@@ -20,7 +20,7 @@ const LookupFormComponent = ({ modelConfig, name, viewConfig, extension }: Looku
     return (
         <Dropdown
             className={viewConfig.className}
-            value={modelConfig.value}
+            value={modelConfig.value ?? modelConfig.defaultValue}
             onSelect={onSelect}
             label={{
                 caption: viewConfig.caption,
