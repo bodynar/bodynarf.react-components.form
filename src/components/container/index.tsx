@@ -1,11 +1,12 @@
 import { useCallback, useEffect } from "react";
+
 import { useDispatch, connect } from "react-redux";
 
 import Button from "@bodynarf/react.components/components/button";
 
 import Form from "../form";
 
-import { getInitAction, getSetFormStatus, FormState } from "../../redux";
+import { getInitAction, getSetFormStatus, FormState, getResetAction } from "../../redux";
 import { submitFormAsync } from "../../redux/actions";
 
 import { FormModuleProps } from "../../component";
@@ -26,6 +27,11 @@ const FormContainerComponent = ({
             dispatch(getSetFormStatus("idle"));
         }
     }, [state]);
+
+    useEffect(() =>
+        () => {
+            dispatch(getResetAction());
+        }, []);
 
     const onSubmitClick = useCallback(submitForm, [submitForm]);
 

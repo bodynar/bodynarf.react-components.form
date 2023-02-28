@@ -15,3 +15,6 @@ export const setFormStatus = "bbr-form/setStatus";
 
 /** Set form validation result */
 export const setValidationResult = "bbr-form/setValidationResult";
+
+/** Set state values to default values. Reset all changes */
+export const resetState = "bbr-form/resetState";

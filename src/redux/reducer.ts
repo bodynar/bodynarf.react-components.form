@@ -3,7 +3,7 @@ import { isNullOrUndefined } from "@bodynarf/utils";
 import { FormConfig, FormItemValidationState, ValidationResult } from "../types";
 
 import { ActionWithPayload, FormPurityState, FormState, FormStatus } from "./types";
-import { initForm, setFieldValue, setFormStatus, setValidationResult } from "./actionTypes";
+import { initForm, resetState, setFieldValue, setFormStatus, setValidationResult } from "./actionTypes";
 import { map as mapFormItems, validateItem } from "./utils";
 
 /** Initial form state values */
@@ -121,6 +121,9 @@ export default function (state = initialState, action: ActionWithPayload): FormS
                 state: currentState === FormItemValidationState.Valid ? "submited" : "validation errors",
                 valuesStorage: currentState === FormItemValidationState.Valid ? values : [],
             };
+        }
+        case resetState: {
+            return initialState;
         }
         default:
             return state;

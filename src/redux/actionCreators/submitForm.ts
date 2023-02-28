@@ -1,4 +1,5 @@
 import { Action } from "redux";
+
 import { submitForm } from "../actionTypes";
 
 /**
