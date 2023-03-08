@@ -2,7 +2,7 @@ import { useCallback } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { InputColor } from "@bodynarf/react.components";
+import { ElementColor } from "@bodynarf/react.components";
 import Checkbox from "@bodynarf/react.components/components/primitives/checkbox";
 
 import { FormState, FormStatus, getSetFieldValueAction } from "../../../redux";
@@ -31,7 +31,7 @@ const CheckBoxFormComponent = ({ modelConfig, name, viewConfig, extension }: Che
             readonly={state === "validating"}
             isFormLabel={true}
             withoutBorder={extension?.withoutBorder ?? false}
-            style={InputColor.Link}
+            style={ElementColor.Link}
         />
     );
 };
