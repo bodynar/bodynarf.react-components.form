@@ -1,12 +1,11 @@
 import { useCallback } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 
 import Date from "@bodynarf/react.components/components/primitives/date";
 
-import { FormState, FormStatus, getSetFieldValueAction } from "../../../redux";
-import { FormItem } from "../../../types";
-import { getValidationState } from "../../../utils";
+import { FormState, FormStatus, getSetFieldValueAction } from "@bbr.form/store";
+import { FormItem } from "@bbr.form/types";
+import { getValidationState } from "@bbr.form/utils";
 
 /** Date picker component for date form item */
 const DateFormComponent = ({ modelConfig, name, viewConfig }: FormItem<Date>): JSX.Element => {

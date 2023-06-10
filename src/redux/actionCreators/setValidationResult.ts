@@ -1,6 +1,5 @@
-import { ActionWithPayload } from "../types";
-import { setValidationResult } from "../actionTypes";
-import { ValidationResult } from "../../types";
+import { ActionWithPayload, setValidationResult } from "@bbr.form/store";
+import { ValidationResult } from "@bbr.form/types";
 
 /**
  * Get redux action "Set form validation result"

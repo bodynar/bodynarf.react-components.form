@@ -1,12 +1,11 @@
 import { useCallback } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 
 import Multiline from "@bodynarf/react.components/components/primitives/multiline";
 
-import { FormState, FormStatus, getSetFieldValueAction } from "../../../redux";
-import { FormItem } from "../../../types";
-import { getValidationState } from "../../../utils";
+import { FormState, FormStatus, getSetFieldValueAction } from "@bbr.form/store";
+import { FormItem } from "@bbr.form/types";
+import { getValidationState } from "@bbr.form/utils";
 
 /** Multiline component for multiline text form item */
 const MultilineFormComponent = ({ modelConfig, name, viewConfig }: FormItem<string>): JSX.Element => {

@@ -1,6 +1,6 @@
 import { isNullOrUndefined, isStringEmpty } from "@bodynarf/utils";
 
-import { FormItem, ValidationResult, FormItemValidationState } from "../../types";
+import { FormItem, ValidationResult, FormItemValidationState } from "@bbr.form/types";
 
 /**
  * Validate form item by it's own validators

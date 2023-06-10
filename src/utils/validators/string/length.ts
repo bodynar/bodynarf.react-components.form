@@ -1,6 +1,6 @@
 import { isNullOrEmpty } from "@bodynarf/utils";
 
-import { FieldValidator } from "../../../types";
+import { FieldValidator } from "@bbr.form/types";
 
 /**
  * Get string length validator func
@@ -11,6 +11,6 @@ export const getLengthValidator = (length: number): FieldValidator<string> => {
     length = length > 0 ? length : 0;
 
     return (value: string) => {
-        return isNullOrEmpty(value) || value.length < length ? `Value must be atleast ${length} characters long` : "";
+        return isNullOrEmpty(value) || value.length < length ? `Value must be at least ${length} characters long` : "";
     };
 };

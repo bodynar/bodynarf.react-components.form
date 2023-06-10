@@ -1,13 +1,10 @@
 import { useCallback, useEffect } from "react";
-
 import { useDispatch, connect } from "react-redux";
 
 import Button from "@bodynarf/react.components/components/button";
 
-import Form from "../form";
-
-import { getInitAction, getSetFormStatus, FormState, getResetAction } from "../../redux";
-import { submitFormAsync } from "../../redux/actions";
+import Form from "@bbr.form/components/form";
+import { getInitAction, getSetFormStatus, FormState, getResetAction, submitFormAsync } from "@bbr.form/store";
 
 import { FormModuleProps } from "../../component";
 
@@ -22,7 +19,7 @@ const FormContainerComponent = ({
     useEffect(() => {
         if (state === "init") {
             dispatch(getInitAction(formCfg));
-        } else if (state === "submited") {
+        } else if (state === "submitted") {
             formCfg.onSubmit(valuesStorage);
             dispatch(getSetFormStatus("idle"));
         }
@@ -61,7 +58,7 @@ interface FormContainerComponentProps extends Omit<FormState, 'initialConfig' | 
 
     /**
      * Submit form action.
-     * Callback for successfull form validation
+     * Callback for successful form validation
      */
     submitForm: () => void;
 }

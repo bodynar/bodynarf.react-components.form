@@ -1,6 +1,6 @@
 import { ValidationState, ValidationStatus } from "@bodynarf/react.components";
 
-import { FormItemModelConfig, FormItemValidationState } from "../types";
+import { FormItemModelConfig, FormItemValidationState } from "@bbr.form/types";
 
 /**
  * Map form item model validation state to component validation state

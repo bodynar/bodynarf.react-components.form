@@ -1,4 +1,4 @@
-import { GridCell, FormItem } from "../../types";
+import { GridCell, FormItem } from "@bbr.form/types";
 
 import { FormItemViewComponent } from "../item";
 

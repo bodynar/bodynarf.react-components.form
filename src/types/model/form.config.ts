@@ -10,7 +10,7 @@ export interface FormConfig {
 
     /**
      * Fields configuration.
-     * Items can be configurated with default values or with extensions.
+     * Items can be configured with default values or with extensions.
      * To use extensions just provide extra arguments in configuration.
      * To see possible extensions - see `model/extensions/items` interfaces with `..Extension` name template
     */
@@ -21,4 +21,3 @@ export interface FormConfig {
      */
     submitButtonConfiguration: SubmitButtonConfiguration;
 };
-

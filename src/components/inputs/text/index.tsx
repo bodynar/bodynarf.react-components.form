@@ -1,14 +1,12 @@
 import { useCallback } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 
 import { isNullOrEmpty } from "@bodynarf/utils";
-
 import Text from "@bodynarf/react.components/components/primitives/text";
 
-import { FormItem } from "../../../types";
-import { FormState, FormStatus, getSetFieldValueAction } from "../../../redux";
-import { getValidationState } from "../../../utils";
+import { FormItem } from "@bbr.form/types";
+import { FormState, FormStatus, getSetFieldValueAction } from "@bbr.form/store";
+import { getValidationState } from "@bbr.form/utils";
 
 /** Text component for single-line text form item */
 const TextFormComponent = ({ modelConfig, name, viewConfig }: FormItem<string>): JSX.Element => {

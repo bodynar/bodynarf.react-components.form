@@ -1,4 +1,4 @@
-import { FormConfig, ExtendedFormItem } from "../../types";
+import { FormConfig, ExtendedFormItem } from "@bbr.form/types";
 import { FieldValue } from "./fieldValue";
 
 /**
@@ -9,7 +9,7 @@ export type FormStatus =
     | "init"
     | "idle"
     | "validating"
-    | "submited"
+    | "submitted"
     | "validation errors"
     ;
 

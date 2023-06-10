@@ -6,7 +6,7 @@ import NumberFormComponent from "../inputs/number";
 import PasswordFormComponent from "../inputs/password";
 import TextFormComponent from "../inputs/text";
 
-import { CheckboxFormItem, FormItem, LookupFormItem } from "../../types";
+import { CheckboxFormItem, FormItem, LookupFormItem } from "@bbr.form/types";
 
 export const FormItemViewComponent = (item: FormItem<any>): JSX.Element => {
     switch (item.viewConfig.type) {

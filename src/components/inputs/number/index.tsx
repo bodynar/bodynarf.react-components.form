@@ -1,12 +1,11 @@
 import { useCallback } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 
 import Number from "@bodynarf/react.components/components/primitives/number";
 
-import { FormState, FormStatus, getSetFieldValueAction } from "../../../redux";
-import { FormItem } from "../../../types";
-import { getValidationState } from "../../../utils";
+import { FormState, FormStatus, getSetFieldValueAction } from "@bbr.form/store";
+import { FormItem } from "@bbr.form/types";
+import { getValidationState } from "@bbr.form/utils";
 
 /** Number picker component for number form item */
 const NumberFormComponent = ({ modelConfig, name, viewConfig }: FormItem<number>): JSX.Element => {

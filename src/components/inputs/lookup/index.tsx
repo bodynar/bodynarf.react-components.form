@@ -1,13 +1,12 @@
 import { useCallback } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 
 import Dropdown from "@bodynarf/react.components/components/dropdown";
 import { SelectableItem } from "@bodynarf/react.components";
 
-import { FormState, FormStatus, getSetFieldValueAction } from "../../../redux";
-import { LookupFormItem } from "../../../types";
-import { getValidationState } from "../../../utils";
+import { FormState, FormStatus, getSetFieldValueAction } from "@bbr.form/store";
+import { LookupFormItem } from "@bbr.form/types";
+import { getValidationState } from "@bbr.form/utils";
 
 /** Dropdown component for lookup form item */
 const LookupFormComponent = ({ modelConfig, name, viewConfig, extension }: LookupFormItem): JSX.Element => {

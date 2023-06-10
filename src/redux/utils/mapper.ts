@@ -3,9 +3,9 @@ import { getClassName } from "@bodynarf/utils";
 import {
     BaseField, Field, FieldType, ExtendedFormItem,
     getLookupExt, getCheckboxExt, getMultilineExt,
-} from "../../types";
-import { FormItemValidationState } from "../../types/model/formItemValidationState";
-import { required } from "../../utils/validators";
+    FormItemValidationState,
+} from "@bbr.form/types";
+import { required } from "@bbr.form/validators";
 
 /**
  * @public

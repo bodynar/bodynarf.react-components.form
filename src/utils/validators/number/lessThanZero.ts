@@ -1,4 +1,4 @@
-import { FieldValidator } from "../../../types";
+import { FieldValidator } from "@bbr.form/types";
 
 /**
  * Number is less than zero validator function

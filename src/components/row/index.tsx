@@ -2,8 +2,8 @@ import { useMemo } from "react";
 
 import { getClassName } from "@bodynarf/utils";
 
-import { FormItem, FormItemValidationState } from "../../types";
-import { getSortedColumns } from "../../utils/grid";
+import { FormItem, FormItemValidationState } from "@bbr.form/types";
+import { getSortedColumns } from "@bbr.form/utils";
 
 import Cell from "../cell";
 

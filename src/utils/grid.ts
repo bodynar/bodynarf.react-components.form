@@ -1,7 +1,6 @@
 import { isNullOrUndefined } from "@bodynarf/utils";
 
-import { FormItem, LayoutConfig } from "../types";
-import { GridCell } from "../types/view";
+import { FormItem, LayoutConfig, GridCell } from "@bbr.form/types";
 
 /**
  * Get fields with invalid layout config by specified property
@@ -75,6 +74,7 @@ export const getSortedColumns = (items: Array<FormItem<any>>): Array<GridCell> =
     for (let i = 0; i < sortedItems.length; i++) {
         const item = sortedItems[i];
 
+        // TODO: For not 12 \ 6 width figure out about label. Label must have static value, field - dynamic
         const currentItem: GridCell = {
             name: item.name,
             end: item.viewConfig.layoutConfig.columnSpan + item.viewConfig.layoutConfig.column,

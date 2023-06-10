@@ -1,6 +1,6 @@
 import { Action } from "redux";
 
-import { submitForm } from "../actionTypes";
+import { submitForm } from "@bbr.form/store";
 
 /**
  * Get redux action "Submit form"

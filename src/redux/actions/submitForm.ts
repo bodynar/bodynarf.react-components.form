@@ -1,9 +1,11 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { ValidationResult } from "../../types";
 
-import { getSetFormStatus, getSetValidationResultAction } from "../actionCreators";
-import { ActionWithPayload, FormState } from "../types";
-import { validateItem } from "../utils";
+import { ValidationResult } from "@bbr.form/types";
+import {
+    getSetFormStatus, getSetValidationResultAction,
+    ActionWithPayload, FormState,
+    validateItem,
+} from "@bbr.form/store";
 
 const submitFormAction = (
     dispatch: ThunkDispatch<FormState, unknown, ActionWithPayload>,

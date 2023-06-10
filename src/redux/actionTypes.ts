@@ -2,7 +2,7 @@
 export const initForm = "bbr-form/init";
 
 /** Set single field value */
-export const setFieldValue = "bbr-form/setFiedValue";
+export const setFieldValue = "bbr-form/setFieldValue";
 
 /** Validate specified field */
 export const validateField = "bbr-form/validateField";

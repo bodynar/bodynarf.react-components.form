@@ -1,6 +1,6 @@
 import { isNullOrUndefined } from "@bodynarf/utils";
 
-import { FieldValidator } from "../../types";
+import { FieldValidator } from "@bbr.form/types";
 
 /**
  * Required validator function.

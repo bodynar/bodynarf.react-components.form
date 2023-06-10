@@ -1,10 +1,11 @@
 import { isNullOrUndefined } from "@bodynarf/utils";
 
-import { FormConfig, FormItemValidationState, ValidationResult } from "../types";
-
-import { ActionWithPayload, FormPurityState, FormState, FormStatus } from "./types";
-import { initForm, resetState, setFieldValue, setFormStatus, setValidationResult } from "./actionTypes";
-import { map as mapFormItems, validateItem } from "./utils";
+import { FormConfig, FormItemValidationState, ValidationResult } from "@bbr.form/types";
+import {
+    ActionWithPayload, FormPurityState, FormState, FormStatus,
+    initForm, resetState, setFieldValue, setFormStatus, setValidationResult,
+    map as mapFormItems, validateItem
+} from "@bbr.form/store";
 
 /** Initial form state values */
 const initialState: FormState = {
@@ -118,7 +119,7 @@ export default function (state = initialState, action: ActionWithPayload): FormS
 
             return {
                 ...state,
-                state: currentState === FormItemValidationState.Valid ? "submited" : "validation errors",
+                state: currentState === FormItemValidationState.Valid ? "submitted" : "validation errors",
                 valuesStorage: currentState === FormItemValidationState.Valid ? values : [],
             };
         }
@@ -129,4 +130,3 @@ export default function (state = initialState, action: ActionWithPayload): FormS
             return state;
     }
 }
-

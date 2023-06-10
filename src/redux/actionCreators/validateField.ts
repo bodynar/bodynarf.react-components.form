@@ -1,5 +1,4 @@
-import { ActionWithPayload } from "../types";
-import { validateField } from "../actionTypes";
+import { ActionWithPayload, validateField } from "@bbr.form/store";
 
 /**
  * Get redux action "Validate field"

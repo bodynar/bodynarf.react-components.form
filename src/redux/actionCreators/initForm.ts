@@ -1,6 +1,5 @@
-import { FormConfig } from "../../types";
-import { ActionWithPayload } from "../types";
-import { initForm } from "../actionTypes";
+import { FormConfig } from "@bbr.form/types";
+import { ActionWithPayload, initForm } from "@bbr.form/store";
 
 /**
  * Get redux action "Init form state"

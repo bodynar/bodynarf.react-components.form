@@ -2,9 +2,8 @@ import { useMemo } from "react";
 
 import Row from "../row";
 
-import { FormConfig, FormItem } from "../../types";
-
-import { getRows } from "../../utils/grid";
+import { FormConfig, FormItem } from "@bbr.form/types";
+import { getRows } from "@bbr.form/utils";
 
 /** Form component props type */
 interface FormProps extends Omit<FormConfig, 'items' | 'submitButtonConfiguration'> {

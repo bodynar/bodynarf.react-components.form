@@ -1,5 +1,4 @@
-import { ActionWithPayload, FormStatus } from "../types";
-import { setFormStatus } from "../actionTypes";
+import { ActionWithPayload, FormStatus, setFormStatus } from "@bbr.form/store";
 
 /**
  * Get redux action "Set form state status"

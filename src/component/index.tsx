@@ -2,11 +2,11 @@ import { Provider } from "react-redux";
 
 import "./styles.scss";
 
-import { FormConfig } from "../types";
-import { FieldValue } from "../redux";
-import store from "../redux/store";
+import { FormConfig } from "@bbr.form/types";
+import { FieldValue } from "@bbr.form/store";
+import store from "@bbr.form/store/store";
 
-import FormContainer from "../components/container";
+import FormContainer from "@bbr.form/components/container";
 
 /** Form component input props type */
 export interface FormModuleProps extends FormConfig {

@@ -9,12 +9,41 @@
 		"skipLibCheck": true,
 		"declaration": true,
 		"declarationMap": true,
-		"outDir": "dist",
+		"outDir": "./dist",
 		"incremental": true,
-		"moduleResolution": "Node"
+		"moduleResolution": "Node",
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"baseUrl": "./",
+		"paths": {
+			"@bbr.form": [
+				"./src"
+			],
+			"@bbr.form/components": [
+				"./src/components"
+			],
+			"@bbr.form/store": [
+				"./src/redux"
+			],
+			"@bbr.form/store/*": [
+				"./src/redux/*"
+			],
+			"@bbr.form/types": [
+				"./src/types"
+			],
+			"@bbr.form/components/*": [
+				"./src/components/*"
+			],
+			"@bbr.form/utils": [
+				"./src/utils"
+			],
+			"@bbr.form/validators": [
+				"./src/utils/validators"
+			]
+		}
 	},
-	"exclude": [
-		"node_modules",
-		"dist"
+	"include": [
+		"src",
 	]
 }
