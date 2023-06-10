@@ -1,6 +1,6 @@
 {
     "name": "@bodynarf/react.components.form",
-    "version": "1.0.11",
+    "version": "1.1.1",
     "author": {
         "name": "Artem",
         "email": "bodynar@gmail.com"
@@ -22,18 +22,25 @@
         "form"
     ],
     "scripts": {
-        "build": "npx tsc",
-        "publish_pkg": "npx tsc && copy package.json dist && copy readme.md dist && cd dist && npm publish --access=public"
+        "build": "npx tsc && tsc-alias -p tsconfig.json",
+        "copy_styles": "copyfiles -u 1 src/**/*.scss dist",
+        "copy_main" : "copyfiles package.json readme.md dist",
+        "transfer": "npm run copy_styles && npm run copy_main",
+        "build_transfer": "npm run build && npm run transfer",
+        "prepublish": "npm run build_transfer && cd dist && npm pack --dry-run",
+        "publish_pkg": "npm run build_transfer && cd dist && npm publish --access=public"
     },
     "devDependencies": {
         "@types/react": "^18.0.11",
         "@types/react-dom": "^18.0.5",
         "@types/react-redux": "^7.1.24",
-        "typescript": "^4.7.3"
+        "typescript": "^4.7.3",
+        "tsc-alias": "^1.8.6",
+        "copyfiles": "^2.4.1"
     },
-    "dependencies": {
-        "@bodynarf/utils": "^1.1.1",
-        "@bodynarf/react.components": "^1.5.4",
+    "peerDependencies": {
+        "@bodynarf/utils": "^1.1.9",
+        "@bodynarf/react.components": "^1.7.97",
         "bulma": "^0.9.4",
         "react": "^18.1.0",
         "react-dom": "^18.1.0",
