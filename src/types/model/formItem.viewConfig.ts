@@ -15,5 +15,5 @@ export interface FormItemViewConfig {
     layoutConfig: LayoutConfig;
 
     /** Form item view component */
-    type: string; // TODO: should it be string? Or pre defined type | enum?
+    type: FieldType;
 }

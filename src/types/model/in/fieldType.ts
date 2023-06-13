@@ -7,4 +7,5 @@ export type FieldType =
     | "date"
     | "lookup"
     | "password"
+    | "color"
     ;
