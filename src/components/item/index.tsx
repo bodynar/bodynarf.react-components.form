@@ -1,3 +1,5 @@
+import { Color } from "@bodynarf/utils";
+
 import CheckBoxFormComponent from "../inputs/checkbox";
 import DateFormComponent from "../inputs/date";
 import LookupFormComponent from "../inputs/lookup";
@@ -5,6 +7,7 @@ import MultilineFormComponent from "../inputs/multiline";
 import NumberFormComponent from "../inputs/number";
 import PasswordFormComponent from "../inputs/password";
 import TextFormComponent from "../inputs/text";
+import ColorPickerFormComponent from "../inputs/color";
 
 import { CheckboxFormItem, FormItem, LookupFormItem } from "@bbr.form/types";
 
@@ -24,6 +27,8 @@ export const FormItemViewComponent = (item: FormItem<any>): JSX.Element => {
             return <LookupFormComponent {...(item as LookupFormItem)} />;
         case "password":
             return <PasswordFormComponent {...(item as FormItem<string>)} />;
+        case "color":
+            return <ColorPickerFormComponent {...(item as FormItem<Color>)} />;
         default:
             return <>INVALID COMPONENT</>;
     }
