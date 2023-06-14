@@ -1,4 +1,4 @@
-import { LayoutConfig } from "./in";
+import { FieldType, LayoutConfig } from "./in";
 
 /** Form item config for visual appearance */
 export interface FormItemViewConfig {

@@ -70,10 +70,10 @@ Small library with react form component based on [react components package](http
 				},
 			},
 			{
-				name: "birthdate",
+				name: "birthday",
 				type: "date",
 				label: {
-					caption: "Birthdate"
+					caption: "Birthday"
 				},
 				required: true,
 				viewConfig: {
