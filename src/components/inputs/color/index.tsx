@@ -14,8 +14,10 @@ const ColorPickerComponent = ({ modelConfig, name, viewConfig }: FormItem<Color>
     const state = useSelector<FormState, FormStatus>(x => x.state);
     const validationState = getValidationState(modelConfig);
 
-    const onValueChange = useCallback((value?: Color) =>
-        dispatcher(getSetFieldValueAction(name, value)),
+    const onValueChange = useCallback(
+        (value?: Color) => {
+            dispatcher(getSetFieldValueAction(name, value));
+        },
         [name]
     );
 

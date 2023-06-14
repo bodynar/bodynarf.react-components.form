@@ -13,7 +13,10 @@ const PasswordFormComponent = ({ modelConfig, name, viewConfig }: FormItem<strin
     const state = useSelector<FormState, FormStatus>(x => x.state);
     const validationState = getValidationState(modelConfig);
 
-    const onValueChange = useCallback((value?: string) => dispatcher(getSetFieldValueAction(name, value)), [name]);
+    const onValueChange = useCallback(
+        (value?: string) => { dispatcher(getSetFieldValueAction(name, value)); },
+        [name]
+    );
 
     return (
         <Password

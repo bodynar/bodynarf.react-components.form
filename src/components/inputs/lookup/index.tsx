@@ -14,7 +14,10 @@ const LookupFormComponent = ({ modelConfig, name, viewConfig, extension }: Looku
     const state = useSelector<FormState, FormStatus>(x => x.state);
     const validationState = getValidationState(modelConfig);
 
-    const onSelect = useCallback((value?: SelectableItem) => dispatcher(getSetFieldValueAction(name, value)), [name]);
+    const onSelect = useCallback(
+        (value?: SelectableItem) => { dispatcher(getSetFieldValueAction(name, value)); },
+        [name]
+    );
 
     return (
         <Dropdown
