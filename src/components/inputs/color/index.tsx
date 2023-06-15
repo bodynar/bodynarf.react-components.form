@@ -7,6 +7,7 @@ import ColorPicker from "@bodynarf/react.components/components/primitives/color/
 import { FormItem } from "@bbr.form/types";
 import { FormState, FormStatus, getSetFieldValueAction } from "@bbr.form/store";
 import { getValidationState } from "@bbr.form/utils";
+import { ElementPosition } from "@bodynarf/react.components";
 
 /** Color picker component for color selecting form item */
 const ColorPickerComponent = ({ modelConfig, name, viewConfig }: FormItem<Color>): JSX.Element => {
@@ -24,7 +25,7 @@ const ColorPickerComponent = ({ modelConfig, name, viewConfig }: FormItem<Color>
     return (
         <ColorPicker
             name={name}
-            showPreview
+            preview={{ position: ElementPosition.Right }}
             className={viewConfig.className}
             defaultValue={modelConfig.defaultValue}
             onValueChange={onValueChange}
