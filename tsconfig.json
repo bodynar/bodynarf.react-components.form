@@ -24,10 +24,10 @@
 				"./src/components"
 			],
 			"@bbr.form/store": [
-				"./src/redux"
+				"./src/store"
 			],
 			"@bbr.form/store/*": [
-				"./src/redux/*"
+				"./src/store/*"
 			],
 			"@bbr.form/types": [
 				"./src/types"
