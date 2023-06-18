@@ -34,7 +34,7 @@ export interface FormState {
     items: Array<ExtendedFormItemInState<any, any>>;
 
     /** Form configuration */
-    initialConfig: FormConfig | undefined;
+    initialConfig?: FormConfig;
 
     /** Valid form values */
     valuesStorage: Array<FieldValue>;

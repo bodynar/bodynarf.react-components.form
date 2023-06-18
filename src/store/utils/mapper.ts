@@ -1,4 +1,4 @@
-import { getClassName } from "@bodynarf/utils";
+import { getClassName, isNullOrUndefined } from "@bodynarf/utils";
 
 import {
     BaseField, Field, FieldType, ExtendedFormItem,
@@ -47,6 +47,12 @@ const defaultKeys = ([
 ] as Array<keyof BaseField<any>>)
     .map(x => x as string);
 
+/** Form item types where required flag cannot be applied */
+const itemsWhichCannotBeRequired: Array<FieldType> = [
+    "checkbox",
+    "color",
+];
+
 /**
  * @public
  * Map external config to internal model
@@ -56,14 +62,18 @@ const defaultKeys = ([
 export const mapItem = (item: Field<any>): ExtendedFormItem<any, any> => {
     const className: string = getClassName(item.viewConfig.classNames || []);
 
-    const isRequired = item.required === true;
+    let isRequired = item.required === true;
     const validators = item.validators ?? [];
 
     if (isRequired) {
-        const hasValidator = validators.some(x => x === required);
+        if (itemsWhichCannotBeRequired.includes(item.type)) {
+            isRequired = false;
+        } else {
+            const hasValidator = validators.some(x => x === required);
 
-        if (!hasValidator) {
-            validators.push(required);
+            if (!hasValidator) {
+                validators.push(required);
+            }
         }
     }
 
@@ -93,6 +103,10 @@ export const mapItem = (item: Field<any>): ExtendedFormItem<any, any> => {
 
         extension: extension,
     };
+
+    if (itemModifiers.has(item.type)) {
+        itemModifiers.get(item.type)!(result);
+    }
 
     return result;
 };
@@ -124,3 +138,31 @@ const getExtension = (item: Field<any>): any => {
 
     return extension;
 };
+
+// #region modifications
+
+/**
+ * Update mapped item for checkbox
+ * @param item Item configuration
+ */
+const modifyCheckboxItem = (item: ExtendedFormItem<any, any>): void => {
+    if (!isNullOrUndefined(item.modelConfig.defaultValue)) {
+        return;
+    }
+
+    item.modelConfig.defaultValue = false;
+
+    if (item.modelConfig.required) {
+        item.modelConfig.required = false;
+        item.modelConfig.validators = item.modelConfig.validators.filter(x => x !== required);
+    }
+};
+
+/**
+ * Defined modifications of mapped form item configuration
+ */
+const itemModifiers = new Map<FieldType, (item: ExtendedFormItem<any, any>) => void>([
+    ["checkbox", modifyCheckboxItem]
+]);
+
+// #endregion
