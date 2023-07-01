@@ -20,7 +20,7 @@ const MultilineFormComponent = ({ item, source }: MultilineFormItemComponentProp
     const validationState = getValidationState(modelConfig);
 
     const onValueChange = useCallback(
-        (value?: string) => { dispatcher(getSetFieldValueAction(name, value)); },
+        (value?: string) => { dispatcher(getSetFieldValueAction(name, source.required ?? false, value)); },
         [name]
     );
 

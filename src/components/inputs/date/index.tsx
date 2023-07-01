@@ -20,7 +20,7 @@ const DateFormComponent = ({ item, source }: DateFormItemComponentProps): JSX.El
     const validationState = getValidationState(modelConfig);
 
     const onValueChange = useCallback(
-        (value?: Date) => { dispatcher(getSetFieldValueAction(name, value)); },
+        (value?: Date) => { dispatcher(getSetFieldValueAction(name, source.required ?? false, value)); },
         [name]
     );
 

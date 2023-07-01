@@ -7,10 +7,15 @@ import {
     validateItem,
 } from "@bbr.form/store";
 
-const submitFormAction = (
-    dispatch: ThunkDispatch<FormState, Array<Field<any>>, ActionWithPayload>,
-    getState: () => FormState,
-    source: Array<Field<any>>,
+/**
+ * Get action "submit form".
+ * Moves form to validating stage, validates fields.
+ * If form is valid - executes user callback. Otherwise - push form to previous state
+ * @param {Array<Field<any>>} source Source form items configuration
+ */
+export const submitFormAsync = (source: Array<Field<any>>): ThunkAction<void, FormState, unknown, ActionWithPayload> => (
+    dispatch: ThunkDispatch<FormState, unknown, ActionWithPayload>,
+    getState: () => FormState
 ): void => {
     const { items } = getState();
 
@@ -33,10 +38,3 @@ const submitFormAction = (
         dispatch(getSetValidationResultAction(validationResults));
     })();
 };
-
-/**
- * Get action "submit form".
- * Moves form to validating stage, validates fields.
- * If form is valid - executes user callback. Otherwise - push form to previous state
- */
-export const submitFormAsync = (_: Array<Field<any>>): ThunkAction<void, FormState, Array<Field<any>>, ActionWithPayload> => submitFormAction;

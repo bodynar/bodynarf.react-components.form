@@ -4,7 +4,8 @@ import { FormConfig, FormItemValidationState, FormItems, ValidationResult } from
 import {
     ActionWithPayload, FormPurityState, FormState, FormStatus,
     initForm, resetState, setFieldValue, setFormStatus, setValidationResult,
-    mapItems
+    mapItems,
+    validateItem
 } from "@bbr.form/store";
 
 /** Initial form state values */
@@ -50,6 +51,7 @@ export default function (state = initialState, action: ActionWithPayload): FormS
         }
         case setFieldValue: {
             const { name, value } = action.payload["field"] as { name: string, value: any | undefined };
+            const isRequired: boolean = action.payload["isRequired"] as boolean;
 
             const item = state.items.findItemByName(name);
 
@@ -63,18 +65,22 @@ export default function (state = initialState, action: ActionWithPayload): FormS
                 ? state.purityState
                 : FormPurityState.Dirty;
 
+            if (state.state === "validation errors") {
+                const validationResult = validateItem(item!, isRequired, value);
 
-            // по сути обновление не требуется, ведь мы полностью новый state возвращаем, да?..
-
-            // const updatedItems = [
-            //     ...state.items.filter((formItem) => formItem.name !== item!.name),
-            //     item
-            // ].sort((x, y) => x.order - y.order);
+                if (validationResult.state !== FormItemValidationState.Invalid) {
+                    item!.modelConfig.validationState = FormItemValidationState.None;
+                    item!.modelConfig.validationMessages = [];
+                } else {
+                    item!.modelConfig.validationMessages = validationResult.messages;
+                    item!.modelConfig.validationState = validationResult.state;
+                }
+            }
 
             return {
                 ...state,
                 purityState: purityState,
-                // items: updatedItems
+                items: state.items.updateItem(item!)
             };
         }
         case setValidationResult: {

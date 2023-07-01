@@ -23,7 +23,7 @@ const CheckBoxFormComponent = ({ item, source }: CheckboxFormItemComponentProps)
     const state = useSelector<FormState, FormStatus>(x => x.state);
 
     const onValueChange = useCallback(
-        (value?: boolean) => { dispatcher(getSetFieldValueAction(name, value)); },
+        (value?: boolean) => { dispatcher(getSetFieldValueAction(name, source.required ?? false, value)); },
         [name]
     );
 

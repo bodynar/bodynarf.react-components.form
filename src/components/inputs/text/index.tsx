@@ -22,7 +22,7 @@ const TextFormComponent = ({ item, source }: TextFormItemComponentProps): JSX.El
 
     const onValueChange = useCallback((value?: string) => {
         const newValue = isNullOrEmpty(value) ? undefined : value;
-        dispatcher(getSetFieldValueAction(name, newValue));
+        dispatcher(getSetFieldValueAction(name, source.required ?? false, newValue));
     }, [name]);
 
     return (

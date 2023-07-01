@@ -158,7 +158,7 @@ const mapItem = (item: Field<any>): ExtendedFormItem<any, any> => {
             validators: validators,
             validationMessages: [],
             validationState: FormItemValidationState.None,
-            canBeRequired: itemsWhichCannotBeRequired.includes(item.type),
+            canBeRequired: !itemsWhichCannotBeRequired.includes(item.type),
         },
 
         extension: extension,

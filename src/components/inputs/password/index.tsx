@@ -20,7 +20,7 @@ const PasswordFormComponent = ({ item, source }: PasswordFormItemComponentProps)
     const validationState = getValidationState(modelConfig);
 
     const onValueChange = useCallback(
-        (value?: string) => { dispatcher(getSetFieldValueAction(name, value)); },
+        (value?: string) => { dispatcher(getSetFieldValueAction(name, source.required ?? false, value)); },
         [name]
     );
 

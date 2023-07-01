@@ -23,7 +23,7 @@ const ColorPickerComponent = ({ item, source }: ColorFormItemComponentProps): JS
 
     const onValueChange = useCallback(
         (value?: Color) => {
-            dispatcher(getSetFieldValueAction(name, value));
+            dispatcher(getSetFieldValueAction(name, source.required ?? false, value));
         },
         [name]
     );

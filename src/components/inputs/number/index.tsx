@@ -20,7 +20,7 @@ const NumberFormComponent = ({ item, source }: NumberFormItemComponentProps): JS
     const validationState = getValidationState(modelConfig);
 
     const onValueChange = useCallback(
-        (value?: number) => { dispatcher(getSetFieldValueAction(name, value)); },
+        (value?: number) => { dispatcher(getSetFieldValueAction(name, source.required ?? false, value)); },
         [name]
     );
 

@@ -25,7 +25,7 @@ const LookupFormComponent = ({ item, source }: LookupFormItemComponentProps): JS
     const validationState = getValidationState(modelConfig);
 
     const onSelect = useCallback(
-        (value?: SelectableItem) => { dispatcher(getSetFieldValueAction(name, value)); },
+        (value?: SelectableItem) => { dispatcher(getSetFieldValueAction(name, source.required ?? false, value)); },
         [name]
     );
 
