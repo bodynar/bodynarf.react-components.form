@@ -1,17 +1,17 @@
 import { isNullOrUndefined } from "@bodynarf/utils";
 
-import { FormConfig, FormItemValidationState, ValidationResult } from "@bbr.form/types";
+import { FormConfig, FormItemValidationState, FormItems, ValidationResult } from "@bbr.form/types";
 import {
     ActionWithPayload, FormPurityState, FormState, FormStatus,
     initForm, resetState, setFieldValue, setFormStatus, setValidationResult,
-    map as mapFormItems, validateItem
+    mapItems
 } from "@bbr.form/store";
 
 /** Initial form state values */
 const initialState: FormState = {
     state: "init",
     initialConfig: undefined,
-    items: [],
+    items: new FormItems([]),
     valuesStorage: [],
     purityState: FormPurityState.Pure,
 };
@@ -38,52 +38,43 @@ export default function (state = initialState, action: ActionWithPayload): FormS
                 return state;
             }
 
-            const formConfig = mapFormItems(config!.items);
+            const mappedItems = mapItems(config!.items);
 
             return {
                 ...state,
                 state: "idle",
                 initialConfig: config,
-                items: formConfig.map((x, i) => ({ ...x, order: i })),
+                items: mappedItems,
                 valuesStorage: [],
             };
         }
         case setFieldValue: {
             const { name, value } = action.payload["field"] as { name: string, value: any | undefined };
 
-            const item = state.items.find(item => item.name === name)!;
+            const item = state.items.findItemByName(name);
 
             if (isNullOrUndefined(item)) {
                 return state;
             }
 
-            item.modelConfig.value = value;
+            item!.modelConfig.value = value;
 
-            const purityState = state.purityState === FormPurityState.Pure && value !== item.modelConfig.defaultValue
+            const purityState = state.purityState === FormPurityState.Pure && value !== item!.modelConfig.defaultValue
                 ? state.purityState
                 : FormPurityState.Dirty;
 
-            if (state.state === "validation errors") {
-                const validationResult = validateItem(item, value);
 
-                if (validationResult.state !== FormItemValidationState.Invalid) {
-                    item.modelConfig.validationState = FormItemValidationState.None;
-                    item.modelConfig.validationMessages = [];
-                } else {
-                    item.modelConfig.validationMessages = validationResult.messages;
-                    item.modelConfig.validationState = validationResult.state;
-                }
-            }
+            // по сути обновление не требуется, ведь мы полностью новый state возвращаем, да?..
 
-            const updatedItems = [
-                ...state.items.filter(({ name }) => name !== item.name),
-                item
-            ].sort((x, y) => x.order - y.order);
+            // const updatedItems = [
+            //     ...state.items.filter((formItem) => formItem.name !== item!.name),
+            //     item
+            // ].sort((x, y) => x.order - y.order);
 
             return {
                 ...state,
                 purityState: purityState,
-                items: updatedItems
+                // items: updatedItems
             };
         }
         case setValidationResult: {
@@ -96,7 +87,7 @@ export default function (state = initialState, action: ActionWithPayload): FormS
             const values = [];
 
             for (let [key, value] of validationResult) {
-                const item = state.items.find(({ name }) => name === key)!;
+                const item = state.items.findItemByName(key)!;
 
                 item.modelConfig.validationState = value.state;
                 item.modelConfig.validationMessages.length = 0;

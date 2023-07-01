@@ -1,4 +1,4 @@
-import { FormConfig, ExtendedFormItem } from "@bbr.form/types";
+import { FormConfig, FormItems } from "@bbr.form/types";
 import { FieldValue } from "./fieldValue";
 
 /**
@@ -31,7 +31,7 @@ export interface FormState {
     state: FormStatus;
 
     /** Form items */
-    items: Array<ExtendedFormItemInState<any, any>>;
+    items: FormItems;
 
     /** Form configuration */
     initialConfig?: FormConfig;
@@ -41,10 +41,4 @@ export interface FormState {
 
     /** Current purity state */
     purityState: FormPurityState;
-}
-
-/** Extension of form item to store order */
-interface ExtendedFormItemInState<TValue, TExtension> extends ExtendedFormItem<TValue, TExtension> {
-    /** Order in initial config */
-    order: number;
 }

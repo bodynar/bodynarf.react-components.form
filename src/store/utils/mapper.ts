@@ -4,18 +4,9 @@ import {
     BaseField, Field, FieldType, ExtendedFormItem,
     getLookupExt, getCheckboxExt, getMultilineExt,
     FormItemValidationState,
+    FormItems,
 } from "@bbr.form/types";
-import { required } from "@bbr.form/validators";
-
-/**
- * @public
- * Map external config to internal model
- * @param items Form items from external config
- * @returns Form items for internal use
- */
-export const map = (items: Array<Field<any>>): Array<ExtendedFormItem<any, any>> => {
-    return items.map(mapItem);
-};
+import { GridCell } from "@bbr.form/types";
 
 /**
  * @private
@@ -54,29 +45,100 @@ const itemsWhichCannotBeRequired: Array<FieldType> = [
 ];
 
 /**
+ * Map form fields config into grid system model
+ * @param items Configuration of form fields
+ * @returns Model of mapped form fields config
+ */
+export const mapItems = (items: Array<Field<any>> = []): FormItems => {
+    const rowNumberToColumnsMap = new Map<number, Array<Field<any>>>();
+
+    items
+        .sort((left, right) => left.viewConfig.layout.row - right.viewConfig.layout.row)
+        .forEach(item => {
+            const row = item.viewConfig.layout.row;
+
+            const columns = rowNumberToColumnsMap.get(row) ?? [];
+            columns.push(item);
+
+            rowNumberToColumnsMap.set(
+                row,
+                columns.sort(
+                    (left, right) =>
+                        left.viewConfig.layout.column - right.viewConfig.layout.column
+                )
+            );
+        });
+
+    const rowWithColumns =
+        Array.from(rowNumberToColumnsMap.values())
+            .map(row => {
+                const cells = sortColumns(row);
+
+                return cells.map(cellConfig => {
+                    const item = row.find(({ name }) => name === cellConfig.name)!;
+
+                    return {
+                        ...mapItem(item),
+                        cellConfig,
+                    } as ExtendedFormItem<any, any>;
+                });
+            });
+
+    return new FormItems(...rowWithColumns);
+};
+
+/**
+ * Get row cell configuration items
+ * @param items Row field configurations
+ * @returns Array of row cell config items
+ */
+const sortColumns = (items: Array<Field<any>> = []): Array<GridCell> => {
+    const sortedItems =
+        items
+            .sort((left, right) => left.viewConfig.layout.column - right.viewConfig.layout.column);
+
+    const result: Array<GridCell> = [];
+
+    for (let i = 0; i < sortedItems.length; i++) {
+        const item = sortedItems[i];
+
+        // TODO: For not 12 \ 6 width figure out about label. Label must have static value, field - dynamic
+        const currentItem: GridCell = {
+            name: item.name,
+            end: item.viewConfig.layout.columnSpan + item.viewConfig.layout.column,
+            start: item.viewConfig.layout.column,
+            className: `bbr-form__field column is-${item.viewConfig.layout.columnSpan}`
+        };
+
+        if (item.type === "checkbox") {
+            currentItem.className += " bbr-form__field--is-checkbox";
+        }
+
+        const previousItem = result[i - 1];
+
+        if (!isNullOrUndefined(previousItem) && previousItem.end != currentItem.start) {
+            const diff = Math.abs(currentItem.start - previousItem.end);
+
+            if (diff < 12) {
+                currentItem.className += ` is-offset-${diff}`;
+            }
+        }
+
+        result.push(currentItem);
+    }
+
+    return result;
+};
+
+/**
  * @public
  * Map external config to internal model
  * @param item Form item from external config
  * @returns Form item for internal use
  */
-export const mapItem = (item: Field<any>): ExtendedFormItem<any, any> => {
+const mapItem = (item: Field<any>): ExtendedFormItem<any, any> => {
     const className: string = getClassName(item.viewConfig.classNames || []);
-
-    let isRequired = item.required === true;
     const validators = item.validators ?? [];
-
-    if (isRequired) {
-        if (itemsWhichCannotBeRequired.includes(item.type)) {
-            isRequired = false;
-        } else {
-            const hasValidator = validators.some(x => x === required);
-
-            if (!hasValidator) {
-                validators.push(required);
-            }
-        }
-    }
-
     const keys = Object.keys(item);
     const hasExtraKeys = keys.some(key => !defaultKeys.includes(key));
 
@@ -86,9 +148,7 @@ export const mapItem = (item: Field<any>): ExtendedFormItem<any, any> => {
         name: item.name,
         viewConfig: {
             className: className,
-            caption: item.label.caption,
             layoutConfig: item.viewConfig.layout,
-            disabled: item.readonly === true,
             type: item.type,
         },
         modelConfig: {
@@ -96,9 +156,9 @@ export const mapItem = (item: Field<any>): ExtendedFormItem<any, any> => {
             defaultValue: item.defaultValue,
             value: item.defaultValue,
             validators: validators,
-            required: isRequired,
             validationMessages: [],
             validationState: FormItemValidationState.None,
+            canBeRequired: itemsWhichCannotBeRequired.includes(item.type),
         },
 
         extension: extension,
@@ -151,11 +211,6 @@ const modifyCheckboxItem = (item: ExtendedFormItem<any, any>): void => {
     }
 
     item.modelConfig.defaultValue = false;
-
-    if (item.modelConfig.required) {
-        item.modelConfig.required = false;
-        item.modelConfig.validators = item.modelConfig.validators.filter(x => x !== required);
-    }
 };
 
 /**
