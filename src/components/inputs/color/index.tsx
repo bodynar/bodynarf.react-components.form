@@ -2,22 +2,28 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Color } from "@bodynarf/utils";
+import { ElementPosition } from "@bodynarf/react.components";
 import ColorPicker from "@bodynarf/react.components/components/primitives/color/component";
 
-import { FormItem } from "@bbr.form/types";
 import { FormState, FormStatus, getSetFieldValueAction } from "@bbr.form/store";
 import { getValidationState } from "@bbr.form/utils";
-import { ElementPosition } from "@bodynarf/react.components";
+
+import { FormItemComponentProps } from "..";
+
+/** Color picker form component props */
+interface ColorFormItemComponentProps extends FormItemComponentProps<Color> { }
 
 /** Color picker component for color selecting form item */
-const ColorPickerComponent = ({ modelConfig, name, viewConfig }: FormItem<Color>): JSX.Element => {
+const ColorPickerComponent = ({ item, source }: ColorFormItemComponentProps): JSX.Element => {
+    const { modelConfig, name, viewConfig } = item;
+
     const dispatcher = useDispatch();
     const state = useSelector<FormState, FormStatus>(x => x.state);
     const validationState = getValidationState(modelConfig);
 
     const onValueChange = useCallback(
         (value?: Color) => {
-            dispatcher(getSetFieldValueAction(name, value));
+            dispatcher(getSetFieldValueAction(name, source.required ?? false, value));
         },
         [name]
     );
@@ -30,11 +36,11 @@ const ColorPickerComponent = ({ modelConfig, name, viewConfig }: FormItem<Color>
             defaultValue={modelConfig.defaultValue}
             onValueChange={onValueChange}
             label={{
-                caption: viewConfig.caption,
+                caption: source.label.caption,
                 horizontal: true,
-                className: modelConfig.required ? "is-required" : ""
+                className: source.required ? "is-required" : ""
             }}
-            disabled={viewConfig.disabled || state === "validating"}
+            disabled={source.readonly || state === "validating"}
             validationState={validationState}
         />
     );

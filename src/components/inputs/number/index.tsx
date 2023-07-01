@@ -4,17 +4,23 @@ import { useDispatch, useSelector } from "react-redux";
 import Number from "@bodynarf/react.components/components/primitives/number";
 
 import { FormState, FormStatus, getSetFieldValueAction } from "@bbr.form/store";
-import { FormItem } from "@bbr.form/types";
 import { getValidationState } from "@bbr.form/utils";
 
+import { FormItemComponentProps } from "..";
+
+/** Number form component props */
+interface NumberFormItemComponentProps extends FormItemComponentProps<number> { }
+
 /** Number picker component for number form item */
-const NumberFormComponent = ({ modelConfig, name, viewConfig }: FormItem<number>): JSX.Element => {
+const NumberFormComponent = ({ item, source }: NumberFormItemComponentProps): JSX.Element => {
+    const { modelConfig, name, viewConfig } = item;
+
     const dispatcher = useDispatch();
     const state = useSelector<FormState, FormStatus>(x => x.state);
     const validationState = getValidationState(modelConfig);
 
     const onValueChange = useCallback(
-        (value?: number) => { dispatcher(getSetFieldValueAction(name, value)); },
+        (value?: number) => { dispatcher(getSetFieldValueAction(name, source.required ?? false, value)); },
         [name]
     );
 
@@ -25,13 +31,13 @@ const NumberFormComponent = ({ modelConfig, name, viewConfig }: FormItem<number>
             defaultValue={modelConfig.defaultValue}
             onValueChange={onValueChange}
             label={{
-                caption: viewConfig.caption,
+                caption: source.label.caption,
                 horizontal: true,
-                className: modelConfig.required ? "is-required" : ""
+                className: source.required ? "is-required" : ""
             }}
-            disabled={viewConfig.disabled || state === "validating"}
+            disabled={source.readonly || state === "validating"}
             validationState={validationState}
-            placeholder={viewConfig.caption}
+            placeholder={source.label.caption}
         />
     );
 };

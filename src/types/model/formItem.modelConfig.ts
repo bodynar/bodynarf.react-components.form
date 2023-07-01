@@ -13,7 +13,7 @@ export interface FormItemModelConfig<TValue> {
     defaultValue?: TValue;
 
     /** Is value required */
-    required: boolean;
+    canBeRequired: boolean;
 
     /** Value validators */
     validators: Array<FieldValidator<TValue>>;

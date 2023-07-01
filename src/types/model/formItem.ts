@@ -1,3 +1,4 @@
+import { GridCell } from "..";
 import { FormItemModelConfig } from "./formItem.modelConfig";
 import { FormItemViewConfig } from "./formItem.viewConfig";
 
@@ -11,4 +12,7 @@ export interface FormItem<TValue> {
 
     /** Configuration for model data */
     modelConfig: FormItemModelConfig<TValue>;
+
+    /** Cell configuration */
+    cellConfig?: GridCell;
 }

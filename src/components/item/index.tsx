@@ -1,5 +1,3 @@
-import { Color } from "@bodynarf/utils";
-
 import CheckBoxFormComponent from "../inputs/checkbox";
 import DateFormComponent from "../inputs/date";
 import LookupFormComponent from "../inputs/lookup";
@@ -9,26 +7,33 @@ import PasswordFormComponent from "../inputs/password";
 import TextFormComponent from "../inputs/text";
 import ColorPickerFormComponent from "../inputs/color";
 
-import { CheckboxFormItem, FormItem, LookupFormItem } from "@bbr.form/types";
+import { FormItemComponentProps } from "../inputs";
 
-export const FormItemViewComponent = (item: FormItem<any>): JSX.Element => {
+/**
+ * Root form item view component.
+ * Will render concrete component depending on item type
+*/
+export const FormItemViewComponent = ({
+    item,
+    source,
+}: FormItemComponentProps<any>): JSX.Element => {
     switch (item.viewConfig.type) {
         case "text":
-            return <TextFormComponent {...(item as FormItem<string>)} />;
+            return <TextFormComponent item={item} source={source} />;
         case "multiline":
-            return <MultilineFormComponent {...(item as FormItem<string>)} />;
+            return <MultilineFormComponent item={item} source={source} />;
         case "checkbox":
-            return <CheckBoxFormComponent {...(item as CheckboxFormItem)} />;
+            return <CheckBoxFormComponent item={item} source={source} />;
         case "number":
-            return <NumberFormComponent {...(item as FormItem<number>)} />;
+            return <NumberFormComponent item={item} source={source} />;
         case "date":
-            return <DateFormComponent {...(item as FormItem<Date>)} />;
+            return <DateFormComponent item={item} source={source} />;
         case "lookup":
-            return <LookupFormComponent {...(item as LookupFormItem)} />;
+            return <LookupFormComponent item={item} source={source} />;
         case "password":
-            return <PasswordFormComponent {...(item as FormItem<string>)} />;
+            return <PasswordFormComponent item={item} source={source} />;
         case "color":
-            return <ColorPickerFormComponent {...(item as FormItem<Color>)} />;
+            return <ColorPickerFormComponent item={item} source={source} />;
         default:
             return <>INVALID COMPONENT</>;
     }
