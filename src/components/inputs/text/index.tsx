@@ -4,12 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { isNullOrEmpty } from "@bodynarf/utils";
 import Text from "@bodynarf/react.components/components/primitives/text";
 
-import { FormItem } from "@bbr.form/types";
 import { FormState, FormStatus, getSetFieldValueAction } from "@bbr.form/store";
 import { getValidationState } from "@bbr.form/utils";
 
+import { FormItemComponentProps } from "..";
+
+/** Text form component props */
+interface TextFormItemComponentProps extends FormItemComponentProps<string> { }
+
 /** Text component for single-line text form item */
-const TextFormComponent = ({ modelConfig, name, viewConfig }: FormItem<string>): JSX.Element => {
+const TextFormComponent = ({ item, source }: TextFormItemComponentProps): JSX.Element => {
+    const { modelConfig, name, viewConfig } = item;
+
     const dispatcher = useDispatch();
     const state = useSelector<FormState, FormStatus>(x => x.state);
     const validationState = getValidationState(modelConfig);
@@ -26,13 +32,13 @@ const TextFormComponent = ({ modelConfig, name, viewConfig }: FormItem<string>):
             defaultValue={modelConfig.defaultValue}
             onValueChange={onValueChange}
             label={{
-                caption: viewConfig.caption,
+                caption: source.label.caption,
                 horizontal: true,
-                className: modelConfig.required ? "is-required" : ""
+                className: source.required ? "is-required" : ""
             }}
-            disabled={viewConfig.disabled || state === "validating"}
+            disabled={source.readonly || state === "validating"}
             validationState={validationState}
-            placeholder={viewConfig.caption}
+            placeholder={source.label.caption}
         />
     );
 };

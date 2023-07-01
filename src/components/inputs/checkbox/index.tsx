@@ -7,8 +7,18 @@ import Checkbox from "@bodynarf/react.components/components/primitives/checkbox"
 import { FormState, FormStatus, getSetFieldValueAction } from "@bbr.form/store";
 import { CheckboxFormItem } from "@bbr.form/types";
 
+import { FormItemComponentProps } from "..";
+
+/** Checkbox form component props */
+interface CheckboxFormItemComponentProps extends FormItemComponentProps<boolean> {
+    /** Item configuration */
+    item: CheckboxFormItem;
+}
+
 /** Checkbox component for boolean form item */
-const CheckBoxFormComponent = ({ modelConfig, name, viewConfig, extension }: CheckboxFormItem): JSX.Element => {
+const CheckBoxFormComponent = ({ item, source }: CheckboxFormItemComponentProps): JSX.Element => {
+    const { modelConfig, name, viewConfig, extension } = item;
+
     const dispatcher = useDispatch();
     const state = useSelector<FormState, FormStatus>(x => x.state);
 
@@ -23,10 +33,10 @@ const CheckBoxFormComponent = ({ modelConfig, name, viewConfig, extension }: Che
             defaultValue={modelConfig.defaultValue}
             onValueChange={onValueChange}
             label={{
-                caption: viewConfig.caption,
+                caption: source.label.caption,
                 horizontal: true,
             }}
-            disabled={viewConfig.disabled || state === "validating"}
+            disabled={source.readonly || state === "validating"}
             isFormLabel={true}
             withoutBorder={extension?.withoutBorder ?? false}
             style={ElementColor.Link}

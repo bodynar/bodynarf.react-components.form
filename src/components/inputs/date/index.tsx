@@ -4,11 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import Date from "@bodynarf/react.components/components/primitives/date";
 
 import { FormState, FormStatus, getSetFieldValueAction } from "@bbr.form/store";
-import { FormItem } from "@bbr.form/types";
 import { getValidationState } from "@bbr.form/utils";
 
+import { FormItemComponentProps } from "..";
+
+/** Date picker form component props */
+interface DateFormItemComponentProps extends FormItemComponentProps<Date> { }
+
 /** Date picker component for date form item */
-const DateFormComponent = ({ modelConfig, name, viewConfig }: FormItem<Date>): JSX.Element => {
+const DateFormComponent = ({ item, source }: DateFormItemComponentProps): JSX.Element => {
+    const { modelConfig, name, viewConfig } = item;
+
     const dispatcher = useDispatch();
     const state = useSelector<FormState, FormStatus>(x => x.state);
     const validationState = getValidationState(modelConfig);
@@ -25,11 +31,11 @@ const DateFormComponent = ({ modelConfig, name, viewConfig }: FormItem<Date>): J
             defaultValue={modelConfig.defaultValue}
             onValueChange={onValueChange}
             label={{
-                caption: viewConfig.caption,
+                caption: source.label.caption,
                 horizontal: true,
-                className: modelConfig.required ? "is-required" : ""
+                className: source.required ? "is-required" : ""
             }}
-            disabled={viewConfig.disabled || state === "validating"}
+            disabled={source.readonly || state === "validating"}
             validationState={validationState}
         />
     );

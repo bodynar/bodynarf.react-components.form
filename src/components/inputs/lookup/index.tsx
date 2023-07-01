@@ -8,8 +8,18 @@ import { FormState, FormStatus, getSetFieldValueAction } from "@bbr.form/store";
 import { LookupFormItem } from "@bbr.form/types";
 import { getValidationState } from "@bbr.form/utils";
 
+import { FormItemComponentProps } from "..";
+
+/** Lookup form component props */
+interface LookupFormItemComponentProps extends FormItemComponentProps<SelectableItem> {
+    /** Item configuration */
+    item: LookupFormItem;
+}
+
 /** Dropdown component for lookup form item */
-const LookupFormComponent = ({ modelConfig, name, viewConfig, extension }: LookupFormItem): JSX.Element => {
+const LookupFormComponent = ({ item, source }: LookupFormItemComponentProps): JSX.Element => {
+    const { modelConfig, name, viewConfig, extension } = item;
+
     const dispatcher = useDispatch();
     const state = useSelector<FormState, FormStatus>(x => x.state);
     const validationState = getValidationState(modelConfig);
@@ -25,13 +35,13 @@ const LookupFormComponent = ({ modelConfig, name, viewConfig, extension }: Looku
             value={modelConfig.value}
             onSelect={onSelect}
             label={{
-                caption: viewConfig.caption,
+                caption: source.label.caption,
                 horizontal: true,
-                className: modelConfig.required ? "is-required" : ""
+                className: source.required ? "is-required" : ""
             }}
-            disabled={viewConfig.disabled || state === "validating"}
+            disabled={source.readonly || state === "validating"}
             validationState={validationState}
-            placeholder={viewConfig.caption}
+            placeholder={source.label.caption}
             hideOnOuterClick={true}
             deselectable={true}
             items={extension?.items ?? []}
