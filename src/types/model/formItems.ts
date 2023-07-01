@@ -22,11 +22,14 @@ export class FormItems extends Array<Array<ExtendedFormItem<any, any>>> {
      * @returns New wrapper with updated items
      */
     updateItem(item: ExtendedFormItem<any, any>): FormItems {
-        const items = [
-            ...this.flatMap(x => x).filter(({ name }) => name !== item.name),
-            item
-        ];
+        const items: Array<Array<ExtendedFormItem<any, any>>> = [];
 
-        return new FormItems(items);
+        this.forEach(row => {
+            items.push(
+                row.map(x => x.name === item.name ? item : x)
+            );
+        });
+
+        return new FormItems(...items);
     }
 }
