@@ -1,53 +1,36 @@
 {
-    "name": "@bodynarf/react.components.form",
-    "version": "1.2.0",
-    "author": {
-        "name": "Artem",
-        "email": "bodynar@gmail.com"
-    },
-    "repository": {
-        "url": "https://github.com/bodynar/bodynarf.react-components.form",
-        "type": "git"
-    },
-    "bugs": {
-        "url": "https://github.com/bodynar/bodynarf.react-components.form/issues",
-        "email": "bodynar@gmail.com"
-    },
-    "keywords": [
-        "ts",
-        "typescript",
-        "react",
-        "react component",
-        "bulma",
-        "form"
-    ],
-    "scripts": {
-        "build": "npx tsc && tsc-alias -p tsconfig.json",
-        "copy_styles": "copyfiles -u 1 src/**/*.scss dist",
-        "copy_main": "copyfiles package.json readme.md package-lock.json dist",
-        "transfer": "npm run copy_styles && npm run copy_main",
-        "build_transfer": "npm run build && npm run transfer",
-        "prepublish": "npm run build_transfer && cd dist && npm pack --dry-run",
-        "publish_pkg": "npm run build_transfer && cd dist && npm publish --access=public"
-    },
-    "devDependencies": {
-        "@types/react": "^18.0.11",
-        "@types/react-dom": "^18.0.5",
-        "@types/react-redux": "^7.1.24",
-        "copyfiles": "^2.4.1",
-        "sass": "^1.63.3",
-        "tsc-alias": "^1.8.6",
-        "typescript": "^4.7.3"
-    },
-    "peerDependencies": {
-        "@bodynarf/react.components": "^1.8.21",
-        "@bodynarf/utils": "^1.1.9",
-        "bulma": "^0.9.4",
-        "react": "^18.1.0",
-        "react-dom": "^18.1.0",
-        "react-redux": "^8.0.1",
-        "redux-thunk": "^2.4.1",
-        "bootstrap-icons": "^1.10.5",
-        "bulma-checkradio": "^2.1.3"
-    }
+  "name": "demo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@bodynarf/react.components": "^1.8.22",
+    "@bodynarf/react.components.form": "^1.2.0",
+    "@bodynarf/utils": "^1.1.9",
+    "bootstrap-icons": "^1.10.5",
+    "bulma": "^0.9.4",
+    "bulma-checkradio": "^2.1.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.1.0",
+    "redux-thunk": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.37",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.59.0",
+    "@typescript-eslint/parser": "^5.59.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9"
+  }
 }
